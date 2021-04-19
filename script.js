@@ -1,6 +1,7 @@
-let currentOperator = document.getElementsByClassName('current');
-let previousOperator = document.getElementsByClassName('previous');
+let currentOperator = document.querySelector('.current');
+let previousOperator = document.querySelector('.previous');
 let operand;
+let numbers = document.querySelectorAll('[data-number]');
 
 
 // Math functions
@@ -37,5 +38,13 @@ function operate(num1, num2, operator) {
   }
 }
 
-console.log(currentOperator);
-console.log(previousOperator);
+// On click numbers
+numbers.forEach(number => {
+  number.addEventListener('click', function() {
+    currentOperator.innerHTML += number.innerHTML;
+  })
+})
+
+console.log('Inner html is:' + currentOperator.innerHTML);
+console.log(previousOperator.innerHTML);
+console.log(numbers);
