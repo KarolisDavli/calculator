@@ -1,0 +1,39 @@
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: Gotham Rounded, sans-serif;
+  font-weight: normal;
+}
+
+.container {
+  width: auto;
+}
+
+.calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: minmax(100px, auto) repeat(4, 80px);
+  border: 6px black solid;
+  background-color: #808080;
+  gap: 5px;
+  border-radius: 1rem;
+  width: fit-content;
+  overflow: hidden;
+  margin: auto;
+}
+
+.display {
+  grid-column: 1 / -1;
+  background-color: #a9a9a9;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 5rem;
+}
+
+.previous {
+  font-size: 2.5rem;
+  opacity: .6;
+}
