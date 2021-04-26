@@ -3,10 +3,14 @@
   box-sizing: border-box;
   font-family: Gotham Rounded, sans-serif;
   font-weight: normal;
+
 }
 
 .container {
-  width: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .calculator-grid {
@@ -22,6 +26,10 @@
   margin: auto;
 }
 
+button {
+  font-size: 1.6rem;
+}
+
 .display {
   grid-column: 1 / -1;
   background-color: #a9a9a9;
@@ -31,6 +39,7 @@
   flex-direction: column;
   padding: 10px;
   font-size: 5rem;
+  min-height: 158px;
 }
 
 .previous {

@@ -4,6 +4,7 @@ let operand;
 let numbers = document.querySelectorAll('[data-number]');
 let operations = document.querySelectorAll('[data-operation]');
 let equals = document.querySelector('[data-equals]');
+let clear = document.querySelector('[data-clear]');
 let currentNumber;
 let previousNumber;
 
@@ -11,21 +12,26 @@ let previousNumber;
 // Math functions
 function add(num1, num2) {
   let result = num1 + num2;
+  currentOperatorDisplay.innerHTML = result;
+  return result;
   console.log(result);
 }
 
 function subtract(num1, num2) {
   let result = num1 - num2;
+  currentOperatorDisplay.innerHTML = result;
   console.log(result);
 }
 
 function multiply(num1, num2) {
   let result = num1 * num2;
+  currentOperatorDisplay.innerHTML = result;
   console.log(result);
 }
 
 function divide(num1, num2) {
   let result = num1 / num2;
+  currentOperatorDisplay.innerHTML = result;
   console.log(result);
 }
 
@@ -37,7 +43,7 @@ function operate(num1, num2, operator) {
     subtract(num1, num2);
   } else if(operator == '*') {
     multiply(num1, num2);
-  } else if(operator == '/') {
+  } else if(operator == '÷') {
     divide(num1, num2);
   }
 }
@@ -46,8 +52,7 @@ function operate(num1, num2, operator) {
 numbers.forEach(number => {
   number.addEventListener('click', function() {
     currentOperatorDisplay.innerHTML += number.innerHTML;
-    currentNumber = currentOperatorDisplay.innerHTML;
-    console.log('dog');
+    currentNumber = parseInt(number.innerHTML);
   })
 })
 
@@ -56,31 +61,36 @@ operations.forEach(operation => {
   operation.addEventListener('click', function() {
     previousOperatorDisplay.innerHTML = currentOperatorDisplay.innerHTML;
     currentOperatorDisplay.innerHTML = '';
-    previousNumber = previousOperatorDisplay.innerHTML;
+    previousNumber = parseInt(previousOperatorDisplay.innerHTML);
     operand = this.innerHTML;
-    console.log('pusi');
-    console.log(this.innerHTML);
+
+    // if(previousNumber != undefined || currentNumber != undefined) {
+    //   previousOperatorDisplay = operate(previousNumber, currentNumber, operand);
+    //   console.log(previousNumber, currentNumber);
+    // }
   })
 })
 
 // Equals
 equals.addEventListener('click', function() {
-  operate(currentNumber, previousNumber, operand);
-  console.log('equality');
+  operate(previousNumber, currentNumber, operand);
+})
+
+// Clear
+clear.addEventListener('click', function() {
+  currentOperatorDisplay.innerHTML = '';
+  previousOperatorDisplay.innerHTML = '';
 })
 
 
 
-console.log('Inner html is:' + currentOperatorDisplay.innerHTML);
-console.log(previousOperatorDisplay.innerHTML);
-console.log(numbers);
-console.log(currentNumber);
-console.log(previousNumber);
-console.log(operations.innerHTML);
 
 
 
-//  Problema dabar tokia, kad num1 ir num2 yra sukeisti vietoj, 
-// Tai vietoj 5 - 3 gaunas 3 - 5.
-// Tai pat rezultatas nera displayinamas
-// C mygtuko funcionalumas
+
+
+
+// Kad prieiti prie kito veiksmo reikia butinai paspausti lygybe.
+// Reikia padaryti taip, kad paspaudus viena is zenklu paskutiniai du
+// Skaitmenys butu sudedami ir paspaudus viena is zenglu kitas(trecias)
+// Skaicius butu tarkim pridedamas jau prie paskutiniu skaiciu sumos
