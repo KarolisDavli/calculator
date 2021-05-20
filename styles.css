@@ -38,11 +38,6 @@ button {
   align-items: flex-end;
   flex-direction: column;
   padding: 10px;
-  font-size: 5rem;
-  min-height: 158px;
-}
-
-.previous {
-  font-size: 2.5rem;
-  opacity: .6;
+  font-size: 2rem;
+  min-height: 130px;
 }

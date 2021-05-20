@@ -1,38 +1,41 @@
-let currentOperatorDisplay = document.querySelector('.current');
-let previousOperatorDisplay = document.querySelector('.previous');
+let display = document.querySelector('.display');
 let operand;
 let numbers = document.querySelectorAll('[data-number]');
 let operations = document.querySelectorAll('[data-operation]');
 let equals = document.querySelector('[data-equals]');
 let clear = document.querySelector('[data-clear]');
-let currentNumber;
+let currentNumber = [];
+let currentOperand = '';
 let previousNumber;
 
 
 // Math functions
 function add(num1, num2) {
   let result = num1 + num2;
-  currentOperatorDisplay.innerHTML = result;
+  display.innerHTML = result;
+  currentOperand = result;
   return result;
-  console.log(result);
 }
 
 function subtract(num1, num2) {
   let result = num1 - num2;
-  currentOperatorDisplay.innerHTML = result;
-  console.log(result);
+  display.innerHTML = result;
+  currentOperand = result;
+  return result;
 }
 
 function multiply(num1, num2) {
   let result = num1 * num2;
-  currentOperatorDisplay.innerHTML = result;
-  console.log(result);
+  display.innerHTML = result;
+  currentOperand = result;
+  return result;
 }
 
 function divide(num1, num2) {
   let result = num1 / num2;
-  currentOperatorDisplay.innerHTML = result;
-  console.log(result);
+  display.innerHTML = result;
+  currentOperand = result;
+  return result;
 }
 
 // Operate
@@ -48,49 +51,61 @@ function operate(num1, num2, operator) {
   }
 }
 
-// On click numbers
+// Digits
 numbers.forEach(number => {
   number.addEventListener('click', function() {
-    currentOperatorDisplay.innerHTML += number.innerHTML;
-    currentNumber = parseInt(number.innerHTML);
+    appendNumber(number);
+    updateDisplay(number);
   })
 })
 
-// On click operation
+
+// Update display
+function updateDisplay(number) {
+  display.innerText += number.innerText;
+}
+
+// Append Numbers
+function appendNumber(number) {
+  currentNumber.push(number.innerText);
+  currentOperand = parseInt(currentNumber.join(''));
+}
+
 operations.forEach(operation => {
   operation.addEventListener('click', function() {
-    previousOperatorDisplay.innerHTML = currentOperatorDisplay.innerHTML;
-    currentOperatorDisplay.innerHTML = '';
-    previousNumber = parseInt(previousOperatorDisplay.innerHTML);
-    operand = this.innerHTML;
-
-    // if(previousNumber != undefined || currentNumber != undefined) {
-    //   previousOperatorDisplay = operate(previousNumber, currentNumber, operand);
-    //   console.log(previousNumber, currentNumber);
-    // }
+    action(operation);
   })
 })
+
+
+// Action
+function action(operation) {
+  if (currentOperand !== '') {
+    operate(previousNumber, currentOperand, operand);
+  }
+  operand = operation.innerText;
+  display.innerText += operation.innerText;
+  previousNumber = currentOperand;
+  currentNumber = [];
+  console.log(display.innerText);
+  console.log(operand);
+  console.log(currentNumber);
+  console.log(previousNumber);
+}
+
+
 
 // Equals
 equals.addEventListener('click', function() {
-  operate(previousNumber, currentNumber, operand);
+  previousNumber = operate(previousNumber, currentOperand, operand);
+  console.log(currentOperand);
 })
 
 // Clear
 clear.addEventListener('click', function() {
-  currentOperatorDisplay.innerHTML = '';
-  previousOperatorDisplay.innerHTML = '';
+  operand = '';
+  display.innerHTML = '';
+  currentNumber = [];
+  previousNumber = '';
 })
 
-
-
-
-
-
-
-
-
-// Kad prieiti prie kito veiksmo reikia butinai paspausti lygybe.
-// Reikia padaryti taip, kad paspaudus viena is zenklu paskutiniai du
-// Skaitmenys butu sudedami ir paspaudus viena is zenglu kitas(trecias)
-// Skaicius butu tarkim pridedamas jau prie paskutiniu skaiciu sumos
