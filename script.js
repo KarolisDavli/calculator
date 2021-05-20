@@ -51,7 +51,7 @@ function operate(num1, num2, operator) {
   }
 }
 
-// Digits
+// Number buttons
 numbers.forEach(number => {
   number.addEventListener('click', function() {
     appendNumber(number);
@@ -71,6 +71,7 @@ function appendNumber(number) {
   currentOperand = parseInt(currentNumber.join(''));
 }
 
+// Operation buttons
 operations.forEach(operation => {
   operation.addEventListener('click', function() {
     action(operation);
@@ -99,6 +100,9 @@ function action(operation) {
 equals.addEventListener('click', function() {
   previousNumber = operate(previousNumber, currentOperand, operand);
   console.log(currentOperand);
+  // Paspaudus equals resultatas turetu but priskirtas prie prevNumber
+  // Vietoj to jis grizta kaip undifiend
+  console.log(previousNumber);
 })
 
 // Clear
@@ -106,6 +110,11 @@ clear.addEventListener('click', function() {
   operand = '';
   display.innerHTML = '';
   currentNumber = [];
+  currentOperand = '';
   previousNumber = '';
+  console.log(operand);
+  console.log(currentNumber);
+  console.log(previousNumber);
+  console.log(currentOperand);
 })
 
