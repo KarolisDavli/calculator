@@ -1,9 +1,9 @@
 let display = document.querySelector('.display');
-let operand;
 let numbers = document.querySelectorAll('[data-number]');
 let operations = document.querySelectorAll('[data-operation]');
 let equals = document.querySelector('[data-equals]');
 let clear = document.querySelector('[data-clear]');
+let operand;
 let currentNumber = [];
 let currentOperand = '';
 let previousNumber;
@@ -14,31 +14,38 @@ function add(num1, num2) {
   let result = num1 + num2;
   display.innerHTML = result;
   currentOperand = result;
-  return result;
 }
 
 function subtract(num1, num2) {
   let result = num1 - num2;
   display.innerHTML = result;
   currentOperand = result;
-  return result;
 }
 
 function multiply(num1, num2) {
   let result = num1 * num2;
   display.innerHTML = result;
   currentOperand = result;
-  return result;
 }
 
 function divide(num1, num2) {
   let result = num1 / num2;
+  if (num2 === 0) {
+    result = 'You can\'t do that here';
+  }
   display.innerHTML = result;
-  currentOperand = result;
-  return result;
+  console.log(result);
 }
 
-// Operate
+// function countDecimals(result) {
+//   count = result.toString().split('.')[1].length;
+//   if (count > 5) {
+//    result = parseFloat(result).toFixed(5);
+//    console.log(result);
+//  }
+//  return result;
+// }
+
 function operate(num1, num2, operator) {
   if(operator == '+') {
     add(num1, num2);
@@ -51,35 +58,16 @@ function operate(num1, num2, operator) {
   }
 }
 
-// Number buttons
-numbers.forEach(number => {
-  number.addEventListener('click', function() {
-    appendNumber(number);
-    updateDisplay(number);
-  })
-})
 
-
-// Update display
 function updateDisplay(number) {
   display.innerText += number.innerText;
 }
 
-// Append Numbers
 function appendNumber(number) {
   currentNumber.push(number.innerText);
   currentOperand = parseInt(currentNumber.join(''));
 }
 
-// Operation buttons
-operations.forEach(operation => {
-  operation.addEventListener('click', function() {
-    action(operation);
-  })
-})
-
-
-// Action
 function action(operation) {
   if (currentOperand !== '') {
     operate(previousNumber, currentOperand, operand);
@@ -88,33 +76,36 @@ function action(operation) {
   display.innerText += operation.innerText;
   previousNumber = currentOperand;
   currentNumber = [];
-  console.log(display.innerText);
-  console.log(operand);
-  console.log(currentNumber);
-  console.log(previousNumber);
 }
 
-
-
-// Equals
-equals.addEventListener('click', function() {
-  previousNumber = operate(previousNumber, currentOperand, operand);
-  console.log(currentOperand);
-  // Paspaudus equals resultatas turetu but priskirtas prie prevNumber
-  // Vietoj to jis grizta kaip undifiend
-  console.log(previousNumber);
+// Buttons
+operations.forEach(operation => {
+  operation.addEventListener('click', function() {
+    action(operation);
+    console.log(currentOperand);
+  })
 })
 
-// Clear
+numbers.forEach(number => {
+  number.addEventListener('click', function() {
+    appendNumber(number);
+    updateDisplay(number);
+  })
+})
+
+equals.addEventListener('click', function() {
+  operate(previousNumber, currentOperand, operand);
+  currentNumber = [];
+  operand = '';
+})
+
 clear.addEventListener('click', function() {
   operand = '';
   display.innerHTML = '';
   currentNumber = [];
   currentOperand = '';
   previousNumber = '';
-  console.log(operand);
-  console.log(currentNumber);
-  console.log(previousNumber);
-  console.log(currentOperand);
 })
+
+
 
